@@ -1,5 +1,10 @@
 package net.gegy1000.slyther.network;
 
+import net.gegy1000.slyther.util.Log;
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.drafts.Draft_17;
+import org.java_websocket.handshake.ServerHandshake;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
@@ -7,12 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.drafts.Draft_17;
-import org.java_websocket.handshake.ServerHandshake;
-
-import net.gegy1000.slyther.util.Log;
 
 public class ServerPingerDispatcher implements Runnable {
     private static final int PING_TIMEOUT = 20000;

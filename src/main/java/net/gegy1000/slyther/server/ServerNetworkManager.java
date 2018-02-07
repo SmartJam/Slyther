@@ -40,6 +40,7 @@ public class ServerNetworkManager extends WebSocketServer implements NetworkMana
             Log.debug("Initiating a new connection.");
             ConnectedClient client = new ConnectedClient(server, connection, currentClientId);
             if (!server.clients.contains(client)) {
+                Log.info("add new client, clientId:{}", currentClientId);
                 currentClientId++;
                 server.clients.add(client);
                 client.lastPacketTime = System.currentTimeMillis();

@@ -13,28 +13,46 @@ public final class Log {
         LOGGER.catching(t);
     }
 
+    private static String getCallerInfo() {
+        StackTraceElement[] stacks = Thread.currentThread().getStackTrace();
+        StackTraceElement stack = stacks[3];
+        return String.format("[%s:%s(%s)]", stack.getFileName(), stack.getLineNumber(), stack.getMethodName());
+    }
+    
     public static void debug(String message, Object... params) {
-        LOGGER.debug(message, params);
+        Object[] ps = new Object[params.length + 1];
+        ps[0] = getCallerInfo();
+        for (int i = 1; i < ps.length; i++) {
+            ps[i] = params[i - 1];
+        }
+        LOGGER.debug("{} " + message, ps);
     }
 
     public static void error(String message, Object... params) {
-        LOGGER.error(message, params);
-    }
-
-    public static void fatal(String message, Object... params) {
-        LOGGER.fatal(message, params);
+        Object[] ps = new Object[params.length + 1];
+        ps[0] = getCallerInfo();
+        for (int i = 1; i < ps.length; i++) {
+            ps[i] = params[i - 1];
+        }
+        LOGGER.error("{} " + message, ps);
     }
 
     public static void info(String message, Object... params) {
-        LOGGER.info(message, params);
-    }
-
-    public static void trace(String message, Object... params) {
-        LOGGER.trace(message, params);
+        Object[] ps = new Object[params.length + 1];
+        ps[0] = getCallerInfo();
+        for (int i = 1; i < ps.length; i++) {
+            ps[i] = params[i - 1];
+        }
+        LOGGER.info("{} " + message, ps);
     }
 
     public static void warn(String message, Object... params) {
-        LOGGER.warn(message, params);
+        Object[] ps = new Object[params.length + 1];
+        ps[0] = getCallerInfo();
+        for (int i = 1; i < ps.length; i++) {
+            ps[i] = params[i - 1];
+        }
+        LOGGER.warn("{} " + message, ps);
     }
 
     public static void warn(String message, Supplier<?> supplier, Object... params) {
@@ -44,7 +62,13 @@ public final class Log {
             Object obj = params[i];
             paramSuppliers[++i] = () -> obj;
         }
-        LOGGER.warn(message, paramSuppliers);
+
+        Object[] ps = new Object[paramSuppliers.length + 1];
+        ps[0] = getCallerInfo();
+        for (int i = 1; i < ps.length; i++) {
+            ps[i] = paramSuppliers[i - 1];
+        }
+        LOGGER.warn("{} " + message, ps);
     }
 
     public static String bytes(byte[] arr) {

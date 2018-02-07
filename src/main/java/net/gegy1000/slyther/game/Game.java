@@ -3,6 +3,7 @@ package net.gegy1000.slyther.game;
 import net.gegy1000.slyther.game.entity.*;
 import net.gegy1000.slyther.network.NetworkManager;
 import net.gegy1000.slyther.util.BridedList;
+import net.gegy1000.slyther.util.Log;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -46,12 +47,14 @@ public abstract class Game<NET extends NetworkManager, CFG extends Configuration
     }
 
     public void addSector(Sector<?> sector) {
+        Log.info("sector.x:{}, sector.y:{}", sector.posX, sector.posY);
         if (!sectors.contains(sector)) {
             sectors.add(sector);
         }
     }
 
     public void removeSector(Sector<?> sector) {
+        Log.info("sector.x:{}, sector.y:{}", sector.posX, sector.posY);
         sectors.remove(sector);
     }
 
@@ -85,6 +88,9 @@ public abstract class Game<NET extends NetworkManager, CFG extends Configuration
                 preys.add((Prey) entity);
             }
         }
+
+        Log.info("new entity at:({},{}), type:{}, entities.len:{}, snakes.len:{}, foods.len:{}, preys.len:{}",
+                entity.posX, entity.posY, entity.getClass().getSimpleName(), entities.size(), snakes.size(), foods.size(), preys.size());
     }
 
     public void removeEntity(Entity<?> entity) {
@@ -154,15 +160,20 @@ public abstract class Game<NET extends NetworkManager, CFG extends Configuration
         return preys.unmodifiable();
     }
 
+    /** 游戏半径 */
     public abstract int getGameRadius();
+    /** 蛇身最大长度，maximum snake length in body parts units*/
     public abstract int getMSCPS();
     public abstract int getSectorSize();
     public abstract int getSectorsAlongEdge();
+    /** 根据蛇速计算角速度，coef. to calculate angular speed change depending snake speed */
     public abstract float getSpangDv();
+    /** 貌似係节点速度，Maybe nsp stands for "node speed"?*/
     public abstract float getNsp1();
     public abstract float getNsp2();
     public abstract float getNsp3();
 
+    /** 初始角速度，转弯用 basic snake angular speed*/
     public abstract float getBaseSnakeTurnSpeed();
 
     public abstract float getBasePreyTurnSpeed();

@@ -320,6 +320,11 @@ public class SlytherClient extends Game<ClientNetworkManager, ClientConfig> impl
     }
 
     public void setup(int gameRadius, int mscps, int sectorSize, int sectorCountAlongEdge, float spangDV, float nsp1, float nsp2, float nsp3, float snakeTurnSpeed, float preyTurnSpeed, float cst, int protocolVersion) {
+        Log.info("gameR:{}, mscps:{}, sectorSize:{}, sectorCountAlongEdge:{}, spangDV:{},"
+                + " nsp1:{}, nsp2:{}, nsp3:{}, snakeTurnSpeed:{}, preyTurnSpeed:{}, cst:{}",
+                gameRadius, mscps, sectorSize, sectorCountAlongEdge, spangDV,
+                nsp1, nsp2, nsp3,snakeTurnSpeed, preyTurnSpeed, cst);
+
         GAME_RADIUS = gameRadius;
         SECTOR_SIZE = sectorSize;
         SECTORS_ALONG_EDGE = sectorCountAlongEdge;

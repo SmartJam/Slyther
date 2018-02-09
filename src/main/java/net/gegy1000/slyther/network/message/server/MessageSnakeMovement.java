@@ -9,6 +9,7 @@ import net.gegy1000.slyther.network.MessageByteBuffer;
 import net.gegy1000.slyther.network.message.SlytherServerMessageBase;
 import net.gegy1000.slyther.server.ConnectedClient;
 import net.gegy1000.slyther.server.SlytherServer;
+import net.gegy1000.slyther.util.Log;
 
 //4 per second
 public class MessageSnakeMovement extends SlytherServerMessageBase {
@@ -75,6 +76,7 @@ public class MessageSnakeMovement extends SlytherServerMessageBase {
             point.deltaX = point.posX - head.posX;
             point.deltaY = point.posY - head.posY;
             snake.points.add(point);
+            if (snake == client.player) Log.info("snakeId:{}, points.len:{}, totalLen:{}", snake.id, snake.points.size(), snake.totalLength);
             if (snake.isInView) {
                 float fx = (snake.posX + snake.fx) - point.posX;
                 float fy = (snake.posY + snake.fy) - point.posY;
